@@ -1,14 +1,15 @@
-FROM debian:7.6
-MAINTAINER David Vázquez <davazp@gmail.com>
-
-# Install dependencies from Debian repositories
-RUN apt-get update && apt-get install -y make wget bzip2 && apt-get clean
-
-# Install SBCL from the tarball binaries.
-RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.9-x86-64-linux-binary.tar.bz2 -O /tmp/sbcl.tar.bz2 && \
-    mkdir /tmp/sbcl && \
-    tar jxvf /tmp/sbcl.tar.bz2 --strip-components=1 -C /tmp/sbcl/ && \
-    cd /tmp/sbcl && \
-    sh install.sh && \
-    cd /tmp \
-    rm -rf /tmp/sbcl/
+FROM ubuntu:18.04
+WORKDIR /root
+COPY *.lisp ./
+COPY *.ros ./
+ARG V=21.01.14.108
+ARG P=roswell_${V}-1_amd64.deb
+ARG U=https://github.com/roswell/roswell/releases/download/v${V}/${P}
+RUN apt-get -y upgrade && apt-get -y update && \
+    apt-get -y install libcurl3 libcurl3-gnutls wget make && \
+    wget    ${U} && \
+    dpkg -i ${P} && \
+    rm      ${P} && \
+    ros
+RUN apt-get -y install libreadline-dev
+RUN ros install cl-readline
