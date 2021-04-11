@@ -12,5 +12,5 @@ make
 make install
 ros setup
 ros install cl-readline
+ros -Q -e '(ql:quickload :quicklisp-slime-helper)' -q
 tree .
-
