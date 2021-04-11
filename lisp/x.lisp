@@ -1,0 +1,3 @@
+(defun haha ()
+  (print "HAHAHA"))
+
