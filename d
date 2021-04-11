@@ -1,10 +1,5 @@
 #!/usr/bin/env -S docker build . -f
-FROM ubuntu
-#FROM ubuntu:18.04
-#FROM debian
+FROM debian:stable-slim
 WORKDIR /root
-COPY i.sh /root
-COPY src/ src/
-COPY *.lisp ./
-COPY *.ros ./
-RUN /root/i.sh
+COPY install.sh /tmp/
+RUN /tmp/install.sh
