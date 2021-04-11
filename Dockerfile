@@ -10,5 +10,6 @@ RUN apt-get -y upgrade && apt-get -y update && \
     rm      ${P} && \
     ros
 RUN ros install cl-readline
+COPY src/ src/
 COPY *.lisp ./
 COPY *.ros ./
